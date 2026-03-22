@@ -9,17 +9,14 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class PropostaPendenteListener {
+public class PropostaConcluidaListener {
 
     private final NotificacaoSnsService notificacaoSnsService;
 
-    @RabbitListener(queues = "${rabbitmq.queue.proposta.concluida}")
-    public void propostaConcluida(Proposta proposta) {
+    @RabbitListener(queues = "${rabbitmq.queue.proposta.pendente}")
+    public void propostaPendente(Proposta proposta) {
 
-        String mensagem = proposta.getAprovada()
-                ? String.format(MensagemConstante.PROPOSTA_APROVADA, proposta.getNome())
-                : String.format(MensagemConstante.PROPOSTA_REPROVADA, proposta.getNome(), proposta.getObservacao());
-
+        String mensagem = String.format(MensagemConstante.PROPOSTA_EM_ANALISE, proposta.getNome());
         notificacaoSnsService.notificar(proposta.getTelefone(), mensagem);
 
     }

@@ -15,7 +15,7 @@ public class Proposta {
     private String sobreNome;
     private String telefone;
     private String cpf;
-    private Double renda;
+    private String renda;
     private String valorSolicitadoFmt;
     private int prazoPagamento;
     private Boolean aprovada;
